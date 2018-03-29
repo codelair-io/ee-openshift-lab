@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>tech.fabricate.mpdemo</groupId>
+  <artifactId>issfinder</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+  </properties>
+
+  <profiles>
+
+    <!-- Produce an Über-JAR for KumuluzEE -->
+    <profile>
+
+      <id>kumuluzee</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-maven-plugin</artifactId>
+            <version>2.5.2</version>
+            <executions>
+              <execution>
+                <id>package</id>
+                <goals>
+                  <goal>repackage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+
+    </profile>
+
+    <!-- Produce an Über-JAR for OpenLiberty -->
+    <profile>
+
+      <id>openliberty</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>net.wasdev.wlp.maven.plugins</groupId>
+            <artifactId>liberty-maven-plugin</artifactId>
+            <version>2.2</version>
+            <executions>
+              <execution>
+                <id>libertyCreateServer</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>create-server</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>libertyPackageUberJAR</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>install-apps</goal>
+                  <goal>package-server</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <assemblyArtifact>
+                <groupId>io.openliberty</groupId>
+                <artifactId>openliberty-runtime</artifactId>
+                <version>18.0.0.1</version>
+                <type>zip</type>
+              </assemblyArtifact>
+              <template>microProfile1</template>
+              <include>minify,runnable</include>
+              <installAppPackages>dependencies</installAppPackages>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.21.0</version>
+            <configuration>
+              <systemPropertyVariables>
+                <arquillian.launch>openliberty</arquillian.launch>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-wlp-managed-8.5</artifactId>
+          <version>1.0.0.CR1</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+
+    </profile>
+
+    <!-- Produce an Über-JAR for Payara Micro -->
+    <profile>
+      <id>payaramicro</id>
+    </profile>
+
+    <!-- Produce an Über-JAR for Wildfly Swarm -->
+    <profile>
+
+      <id>wildflyswarm</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>wildfly-swarm-plugin</artifactId>
+            <version>2018.3.3</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>package</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>arquillian</artifactId>
+          <version>2018.3.3</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+
+    </profile>
+
+  </profiles>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.1.15.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.microprofile</groupId>
+      <artifactId>microprofile</artifactId>
+      <version>1.2</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>
