@@ -1,4 +1,15 @@
-package tech.fabricate.mpdemo;
+/*
+ * issfinder by Daniel Pfeifer (RedBridge Group).
+ *
+ * To the extent possible under law, the person who associated CC0 with
+ * issfinder has waived all copyright and related or neighboring rights
+ * to issfinder.
+ *
+ * You should have received a copy of the CC0 legalcode along with this
+ * work.  If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+
+package tech.fabricate.issfinder;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -27,11 +38,11 @@ public class Config implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Inject
-  @ConfigProperty(name = "VANTAGE_POINT_LATITUDE", defaultValue = "59.334591")
+  @ConfigProperty(name = "VANTAGE_POINT_LATITUDE", defaultValue = "59.334117")
   private double latitude;
 
   @Inject
-  @ConfigProperty(name = "VANTAGE_POINT_LONGITUDE", defaultValue = "18.06324")
+  @ConfigProperty(name = "VANTAGE_POINT_LONGITUDE", defaultValue = "18.060194")
   private double longitude;
 
   public double getLatitude() {
