@@ -28,7 +28,7 @@ pipeline {
 
     stage ("Build image") {
       steps {
-        openshiftBuild apiURL: '', authToken: '', bldCfg: 'issfinder', buildName: '', checkForTriggeredDeployments: 'false', commitID: '', namespace: '', showBuildLogs: 'true', verbose: 'false', waitTime: '', waitUnit: 'sec'
+        sh 'oc start-build issfinder --from-file=target/issfinder-swarm.jar'
       }
     }
 
