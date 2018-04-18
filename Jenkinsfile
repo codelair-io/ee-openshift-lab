@@ -26,9 +26,15 @@ pipeline {
       }
     }
 
+    stage ("Run integration tests") {
+      steps {
+        sh 'mvn verify'
+      }
+    }
+
     stage ("Build image") {
       steps {
-        sh 'oc start-build issfinder --from-file=target/issfinder-swarm.jar'
+        sh 'oc start-build issfinder --from-file=target/issfinder-swarm.jar --follow'
       }
     }
 
