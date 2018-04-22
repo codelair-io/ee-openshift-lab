@@ -22,13 +22,13 @@ pipeline {
     // Compile stage
     stage ("Compile") {
       steps {
-        sh 'mvn clean package'
+        sh 'JAVA_TOOL_OPTIONS="-Dhttp.proxyHost=proxy.int.redbridge.se -Dhttp.proxyPort=3128 -Dhttps.proxyHost=proxy.int.redbridge.se -Dhttps.proxyPort=3128" mvn package'
       }
     }
 
     stage ("Run integration tests") {
       steps {
-        sh 'mvn verify'
+        sh 'JAVA_TOOL_OPTIONS="-Dhttp.proxyHost=proxy.int.redbridge.se -Dhttp.proxyPort=3128 -Dhttps.proxyHost=proxy.int.redbridge.se -Dhttps.proxyPort=3128" mvn verify'
       }
     }
 
