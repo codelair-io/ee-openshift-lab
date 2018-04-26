@@ -40,6 +40,7 @@
             "uri": "${SOURCE_REPOSITORY_URL}",
             "ref": "${SOURCE_REPOSITORY_REF}"
           }
+          "contextDir": "stage-2"
         },
         "strategy": {
           "type": "JenkinsPipeline",
