@@ -22,19 +22,25 @@ pipeline {
     // Compile stage
     stage ("Compile") {
       steps {
-        sh 'JAVA_TOOL_OPTIONS="-Dhttp.proxyHost=proxy.int.redbridge.se -Dhttp.proxyPort=3128 -Dhttps.proxyHost=proxy.int.redbridge.se -Dhttps.proxyPort=3128" mvn package'
+        sh 'mvn package'
       }
     }
 
     stage ("Run integration tests") {
       steps {
-        sh 'JAVA_TOOL_OPTIONS="-Dhttp.proxyHost=proxy.int.redbridge.se -Dhttp.proxyPort=3128 -Dhttps.proxyHost=proxy.int.redbridge.se -Dhttps.proxyPort=3128" mvn verify'
+        sh 'mvn verify'
       }
     }
 
     stage ("Build image") {
       steps {
         sh 'oc start-build issfinder --from-file=target/issfinder-swarm.jar --follow'
+      }
+    }
+
+    stage ("Approval for Prod") {
+      steps {
+        input message
       }
     }
 

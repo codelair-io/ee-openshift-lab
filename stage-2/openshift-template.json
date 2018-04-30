@@ -38,9 +38,7 @@
           "type": "Git",
           "git": {
             "uri": "${SOURCE_REPOSITORY_URL}",
-            "ref": "${SOURCE_REPOSITORY_REF}",
-            "httpProxy": "http://proxy:3128",
-            "httpsProxy": "https://proxy:3128"
+            "ref": "${SOURCE_REPOSITORY_REF}"
           },
           "contextDir": "stage-2"
         },

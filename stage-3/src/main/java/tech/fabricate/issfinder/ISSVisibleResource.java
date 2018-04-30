@@ -16,11 +16,12 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.Set;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.json.Json;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -29,10 +30,10 @@ import tech.fabricate.issfinder.model.Daylight;
 import tech.fabricate.issfinder.remote.OpenNotifyProxy;
 import tech.fabricate.issfinder.remote.SunriseSunsetProxy;
 
-@RequestScoped
-@Path("/issvisible")
+@ViewScoped
 public class ISSVisibleResource {
-
+  @PersistenceUnit
+  private EntityManagerFactory emf;
   @Inject
   private Config config;
   @Inject

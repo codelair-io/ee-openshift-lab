@@ -38,7 +38,6 @@ public class ISSVisibleResourceIT {
         .addClass(OpenNotifyProxy.class)
         .addClass(SunriseSunsetProxy.class)
         .addClass(Config.class)
-        .addClass(ISSFinder.class)
         .addClass(ISSVisibleResource.class);
   }
 

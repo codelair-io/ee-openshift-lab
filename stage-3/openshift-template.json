@@ -8,7 +8,7 @@
     {
       "name": "ARTIFACT_NAME",
       "description": "The base name for all artifacts created",
-      "value": "issfinder",
+      "value": "issfinder-monolith",
       "required": true
     },
     {
@@ -39,8 +39,8 @@
           "git": {
             "uri": "${SOURCE_REPOSITORY_URL}",
             "ref": "${SOURCE_REPOSITORY_REF}"
-          }
-          "contextDir": "stage-2"
+          },
+          "contextDir": "stage-3"
         },
         "strategy": {
           "type": "JenkinsPipeline",
